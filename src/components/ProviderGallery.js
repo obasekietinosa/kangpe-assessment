@@ -94,10 +94,10 @@ class Gallery extends React.Component {
             </div>            
           </div>    
           <div className="gallery__slider-controls">
-            <button onClick={this.setNextItemIndex} className="gallery__slider-controls__button left">
+            <button onClick={this.setPrevItemIndex} className="gallery__slider-controls__button left">
               <i className="fa fa-chevron-left"></i>
             </button>
-            <button onClick={this.setPrevItemIndex} className="gallery__slider-controls__button right">
+            <button onClick={this.setNextItemIndex} className="gallery__slider-controls__button right">
               <i className="fa fa-chevron-right"></i>
             </button>
           </div>      
