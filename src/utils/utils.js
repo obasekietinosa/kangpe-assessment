@@ -23,6 +23,11 @@ export const pathGet = (arr1, query) => {
 
   // ============== CODE GOES BELOW THIS LINE :) ==============
   for(let [key, value] of Object.entries(arr1)) {
+    if (typeof value === "string" && typeof query === "string") {
+      if (value.includes(query)) {
+        return key
+      }
+    }
     if (value === query) {
       return key
     }
