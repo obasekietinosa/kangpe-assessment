@@ -1,13 +1,14 @@
 import React from 'react';
 import LoadingScreen from '../components/common/LoadingScreen';
 import ApiService from '../utils/apiService';
+import NewProviderForm from '../components/forms/NewProviderForm';
 
 class ViewProvider extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       provider: {},
-      isLoading: false
+      edit: false
     };
   }
 
@@ -38,7 +39,7 @@ class ViewProvider extends React.Component {
   // For Bonus points, you can also add functionality to edit the provider
   // Reusing the NewProviderForm component for this will make it a whole lot easier :D
   render() {
-    const { isLoading, provider } = this.state;
+    const { isLoading, provider, edit } = this.state;
     return (
         <>
           <section>
@@ -47,20 +48,24 @@ class ViewProvider extends React.Component {
             {(isLoading || !provider) ? (
               <LoadingScreen />
             ) : (
-                  <>
-                    <h2>{provider.name}</h2>
-                    <img src={provider?.images?.[0]?.url} alt={provider.name} />
-                    <div>
-                      <h4><i className="fas fa-map-marker"></i> {provider.address}</h4>
-                      <hr />
-                      <h5>Description</h5>
-                      <p>{provider.description}</p>
-                      <hr />
-                      <h5>Rating</h5>
-                      <p>{provider.rating}/5</p>
-                      <hr />
-                    </div>
-                  </>
+                  edit ?
+                    <NewProviderForm edit={provider.id} provider={provider} />
+                  :
+                    <>
+                      <h2>{provider.name}</h2>
+                      <img src={provider?.images?.[0]?.url} alt={provider.name} />
+                      <div>
+                        <h4><i className="fas fa-map-marker"></i> {provider.address}</h4>
+                        <hr />
+                        <h5>Description</h5>
+                        <p>{provider.description}</p>
+                        <hr />
+                        <h5>Rating</h5>
+                        <p>{provider.rating}/5</p>
+                        <hr />
+                        <button onClick={() => this.setState({edit: true})}>Edit Provider</button>
+                      </div>
+                    </>
                 )
             }
             </div>

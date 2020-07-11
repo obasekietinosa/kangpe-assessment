@@ -59,6 +59,29 @@ class ApiService {
     );
     return response.json();
   }
+
+
+  /**
+   * @method put
+   * @description makes a PUT request
+   * @param {string} url The request url
+   * @param {object} data The request params
+   * @returns {object} request reponse in JSON format
+   */
+
+  static async put(url, data) {
+    const response = await fetch(
+      url, {
+        method: 'PUT',
+        headers: {
+            'Authorization': BEARER,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      }
+    );
+    return response.json();
+  }
 }
 
 export default ApiService;

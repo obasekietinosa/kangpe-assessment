@@ -11,13 +11,13 @@ class NewProviderForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      address: "",
-      description: "",
-      active_status: "Pending",
-      state: "",
-      rating: 1,
-      provider_type: "hospital",
+      name: props.provider?.name ?? "",
+      address: props.provider?.address ?? "",
+      description: props.provider?.description ?? "",
+      active_status: props.provider?.active_status ?? "Pending",
+      state: props.provider?.state.name ?? "",
+      rating: props.provider?.rating ?? 1,
+      provider_type: props.provider?.provider_type.name ?? "hospital",
       isLoading: false,
       errors: []
     };
@@ -60,12 +60,21 @@ class NewProviderForm extends React.Component {
       rating: this.state.rating,
       provider_type: this.state.provider_type
     }
-    ApiService.post(ApiService.ENDPOINTS.providers, newProvider)
-      .then((data) => {
-        this.setState({
-          isLoading: false
+    if(this.props.edit) {
+      ApiService.put(`${ApiService.ENDPOINTS.providers}${this.props.edit}`, newProvider)
+        .then((data) => {
+          this.setState({
+            isLoading: false
+          });
         });
-      });
+    } else {
+      ApiService.post(ApiService.ENDPOINTS.providers, newProvider)
+        .then((data) => {
+          this.setState({
+            isLoading: false
+          });
+        });
+    }
   }
 
   render() {
