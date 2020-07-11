@@ -6,6 +6,7 @@ import queryString from 'querystring';
  */
 
  const BASE_URL = "https://pro-zone.herokuapp.com";
+ const BEARER = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTk0MTgzMzUwLCJleHAiOjE1OTY3NzUzNTB9.SS17FWeuomLQxAqyIEiPk0hTjLcKjh91XpM6U2X7dkM"
 
 class ApiService {
   static ENDPOINTS = {
@@ -22,9 +23,17 @@ class ApiService {
    * @returns {object} request reponse in JSON format
    */
 
-  static async get(url, data) {
+  static async get(url, data=null) {
     const response = await fetch(
-      `${url}${data ? `?${queryString.stringify(data)}` : ''}`
+      `${url}${data ? `?${queryString.stringify(data)}` : ''}`,
+      {
+        method: 'GET',
+        // credentials: 'include',
+        headers: {
+            'Authorization': BEARER,
+            'Content-Type': 'application/json'
+        }
+      }
     );
     return response.json();
   }

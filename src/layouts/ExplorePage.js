@@ -4,6 +4,7 @@ import Gallery from '../components/ProviderGallery'
 import NewProviderForm from '../components/forms/NewProviderForm';
 import ApiService from '../utils/apiService';
 import LoadingScreen from '../components/common/LoadingScreen';
+import { pathGet } from '../utils/utils';
 
 class ExplorePage extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class ExplorePage extends React.Component {
       .then((data) => {
         this.setState({
           isLoading: false,
-          data: data.data
+          data: data
         });
       });
   }
@@ -36,7 +37,7 @@ class ExplorePage extends React.Component {
     // On input, filter Available Providers based on Name, Address and Type
     //
     // ============== CODE GOES BELOW THIS LINE :) ==============
-    
+    pathGet(this.state.data, event.target.value)
   }
 
   switchView = () => {
@@ -76,7 +77,7 @@ class ExplorePage extends React.Component {
             ) : (
               <React.Fragment>                
                 <Gallery
-                  items={data.map((item) => ({imageUrl: item.imageUrl, name: item.name, description: item.type}))}
+                  items={data.map((item) => ({id: item.id, imageUrl: item.images[0].url, name: item.name, description: item.description}))}
                 />
               </React.Fragment>
             )}
