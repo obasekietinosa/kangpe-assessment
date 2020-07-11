@@ -1,5 +1,4 @@
 import React from 'react';
-import NavBar from '../components/common/NavBar';
 import Gallery from '../components/ProviderGallery'
 import NewProviderForm from '../components/forms/NewProviderForm';
 import ApiService from '../utils/apiService';
@@ -72,55 +71,52 @@ class ExplorePage extends React.Component {
         break;
     }
     return (
-      <div className="container">
-        <NavBar />
-        <div className="content__main">
-          <section className="main__top-providers">
-            <h2 className="text-header">Our Providers</h2>
-            <div className="flex-row box-shadow" style={{padding:"1rem"}}>
-              <div>
-                <input
-                  type="text"
-                  className="input__style_1 input__search"
-                  placeholder="&#xf002; Search with Provider Name, Address, or Type"
-                  onChange={this.filterProviders}
-                  onInput={this.filterProviders}
-                />
-              </div>
-              <div className="layout-switcher">
-                  <i className={`fa fa-images ${this.isCurrentView("gallery") ? "active" : ""}`}onClick={() => this.switchView("gallery")}></i>
-                  <i className={`fa fa-th-large ${this.isCurrentView("grid") ? "active" : ""}`} onClick={() => this.switchView("grid")}></i>
-                  <i className={`fa fa-th-list ${this.isCurrentView("list") ? "active" : ""}`} onClick={() => this.switchView("list")}></i>
-                </div>
+      <>
+      <section className="main__top-providers">
+        <h2 className="text-header">Our Providers</h2>
+        <div className="flex-row box-shadow" style={{padding:"1rem"}}>
+          <div>
+            <input
+              type="text"
+              className="input__style_1 input__search"
+              placeholder="&#xf002; Search with Provider Name, Address, or Type"
+              onChange={this.filterProviders}
+              onInput={this.filterProviders}
+            />
+          </div>
+          <div className="layout-switcher">
+              <i className={`fa fa-images ${this.isCurrentView("gallery") ? "active" : ""}`}onClick={() => this.switchView("gallery")}></i>
+              <i className={`fa fa-th-large ${this.isCurrentView("grid") ? "active" : ""}`} onClick={() => this.switchView("grid")}></i>
+              <i className={`fa fa-th-list ${this.isCurrentView("list") ? "active" : ""}`} onClick={() => this.switchView("list")}></i>
             </div>
-            {(isLoading || !data) ? (
-              <LoadingScreen />
-            ) : (
-              <React.Fragment>                
-                <ProviderView
-                  items={data.map((item) => ({
-                    id: item.id, 
-                    address: item.address,
-                    rating: item.rating,
-                    type: item.provider_type?.name, 
-                    imageUrl: item?.images?.[0]?.url, 
-                    name: item.name, 
-                    description: item.description
-                  }))}
-                />
-              </React.Fragment>
-            )}
-          </section>
-          <section className="main__new-provider fixed">
-              <div className="new-provider">
-                <h2 className="text-header">Can't find a Provider?</h2>
-                <p className="text-body">Feel free to recommend a new one.</p>
-                <hr/>
-                <NewProviderForm />
-              </div>
-          </section>
         </div>
-      </div>
+        {(isLoading || !data) ? (
+          <LoadingScreen />
+        ) : (
+          <React.Fragment>                
+            <ProviderView
+              items={data.map((item) => ({
+                id: item.id, 
+                address: item.address,
+                rating: item.rating,
+                type: item.provider_type?.name, 
+                imageUrl: item?.images?.[0]?.url, 
+                name: item.name, 
+                description: item.description
+              }))}
+            />
+          </React.Fragment>
+        )}
+      </section>
+      <section className="main__new-provider fixed">
+          <div className="new-provider">
+            <h2 className="text-header">Can't find a Provider?</h2>
+            <p className="text-body">Feel free to recommend a new one.</p>
+            <hr/>
+            <NewProviderForm />
+          </div>
+      </section>
+      </>
     );
   }
 }

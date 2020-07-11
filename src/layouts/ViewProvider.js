@@ -15,7 +15,6 @@ class ViewProvider extends React.Component {
     this.setLoading(true);
     ApiService.get(`${ApiService.ENDPOINTS.providers}${this.props.match.params.id}`)
       .then((data) => {
-        console.log(data, this.props.match.params.id)
         let provider = data
         this.setState({
           isLoading: false,
@@ -41,10 +40,9 @@ class ViewProvider extends React.Component {
   render() {
     const { isLoading, provider } = this.state;
     return (
-      <div className="container">
-        <div className="content__main">
-            <h1>View Provider <span><i className="fa fa-edit"></i></span></h1>
-        </div>
+        <>
+        <h1 className="text-header">View Provider <span><i className="fa fa-edit"></i></span></h1>
+        <div className="flex-row box-shadow" style={{padding:"1rem"}}>
         {(isLoading || !provider) ? (
           <LoadingScreen />
         ) : (
@@ -64,7 +62,8 @@ class ViewProvider extends React.Component {
               </>
             )
         }
-      </div>
+        </div>
+        </>
     )
   }
 }

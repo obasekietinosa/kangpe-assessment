@@ -3,6 +3,7 @@ import USER_STUB from '../../assets/user_stub.svg';
 import DropDown, { DropDownMenu } from './DropDown';
 import AutoCompleteDropDown from './AutoCompleteDropDown';
 import List from '../ProviderList';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => (
   <header className="navbar box-shadow fixed">
@@ -10,7 +11,7 @@ const NavBar = () => (
       <span className="navbar__logo">
         <i className="fa fa-hospital" />
       </span>
-      <h1 className="navbar__title">Pro.Zone</h1>
+      <h1 className="navbar__title"><Link to="/">Pro.Zone</Link></h1>
     </div>
     <div className="navbar-right">
       <AutoCompleteDropDown
