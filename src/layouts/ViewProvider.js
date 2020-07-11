@@ -6,22 +6,20 @@ class ViewProvider extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: {},
+      provider: {},
       isLoading: false
     };
   }
 
   componentDidMount() {
     this.setLoading(true);
-    ApiService.get(ApiService.ENDPOINTS.providers)
+    ApiService.get(`${ApiService.ENDPOINTS.providers}${this.props.match.params.id}`)
       .then((data) => {
         console.log(data, this.props.match.params.id)
-        let provider = data.filter((provider) => (
-          provider.id === parseInt(this.props.match.params.id)
-        ))[0]
+        let provider = data
         this.setState({
           isLoading: false,
-          data: provider
+          provider
         });
       });
   }
@@ -41,24 +39,24 @@ class ViewProvider extends React.Component {
   // For Bonus points, you can also add functionality to edit the provider
   // Reusing the NewProviderForm component for this will make it a whole lot easier :D
   render() {
-    const { isLoading, data } = this.state;
+    const { isLoading, provider } = this.state;
     return (
       <div className="container">
         <div className="content__main">
             <h1>View Provider <span><i className="fa fa-edit"></i></span></h1>
         </div>
-        {(isLoading || !data) ? (
+        {(isLoading || !provider) ? (
           <LoadingScreen />
         ) : (
               <>
-              {/* <img src={data?.images[0]?.url} alt="Provider" /> */}
+              <img src={provider?.images?.[0]?.url} alt="Provider" />
               <div className="card-details">
-                <h3 className="card__title">{data.name}</h3>
-                <p className="card__sub-title">{data.address}</p>
-                <p className="card__sub-title">{data.description}</p>
+                <h3 className="card__title">{provider.name}</h3>
+                <p className="card__sub-title">{provider.address}</p>
+                <p className="card__sub-title">{provider.description}</p>
                 <div className={`provider-card__lower`}>
                   <p className="card__body-text provider-rating">
-                    {data.rating}
+                    {provider.rating}
                     /5
                   </p>
                 </div>

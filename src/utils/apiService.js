@@ -10,8 +10,8 @@ import queryString from 'querystring';
 
 class ApiService {
   static ENDPOINTS = {
-    providers: `${BASE_URL}/providers`,
-    imageUpload: `${BASE_URL}/upload`
+    providers: `${BASE_URL}/providers/`,
+    imageUpload: `${BASE_URL}/upload/`
 
   }
 
