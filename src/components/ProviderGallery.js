@@ -73,10 +73,10 @@ class Gallery extends React.Component {
         <div className="gallery__slider">
           <div className="gallery__slider-item-wrapper">
             <div className="gallery__slider-item prev"
-              style={{backgroundImage:`url("${this.state.items[this.getPrevItemIndex()].imageUrl}")`}}> 
+              style={{backgroundImage:`url("${this.state.items[this.getPrevItemIndex()].imageUrl ?? "https://via.placeholder.com/150x100"}")`}}> 
             </div>            
             <div className="gallery__slider-item active">
-              <img src={this.state.items[this.state.activeItem].imageUrl} className="gallery__slider-item active" alt={`${this.state.items[this.state.activeItem].name}`} />
+              <img src={this.state.items[this.state.activeItem].imageUrl ?? "https://via.placeholder.com/150x100"} className="gallery__slider-item active" alt={`${this.state.items[this.state.activeItem].name}`} />
               <div className="gallery__slider-item__info">
                 <div className="gallery__slider-item__info-name">{this.state.items[this.state.activeItem].name}</div>
                 <div className="gallery__slider-item__info-description">
@@ -90,7 +90,7 @@ class Gallery extends React.Component {
               </div>
             </div>          
             <div className="gallery__slider-item next"
-              style={{backgroundImage:`url("${this.state.items[this.getNextItemIndex()].imageUrl}")`}}>              
+              style={{backgroundImage:`url("${this.state.items[this.getNextItemIndex()].imageUrl ?? "https://via.placeholder.com/150x100"}")`}}>              
             </div>            
           </div>    
           <div className="gallery__slider-controls">
@@ -105,11 +105,11 @@ class Gallery extends React.Component {
         <div className="gallery__thumbnails">
           {
             this.state.items.map((item, key) => (
-              <div 
+              <div
                 key={key} 
                 onClick={() => this.setActiveItemIndex(key)} 
                 className={`gallery__thumbnails__item ${this.isActiveItemIndex(key) ? "active" : ""}`}
-                style={{backgroundImage:`url("${item.imageUrl}")`}}>            
+                style={{backgroundImage:`url("${item.imageUrl ?? "https://via.placeholder.com/150x100"}")`}}>            
               </div>
             ))
           }
