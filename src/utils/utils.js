@@ -22,4 +22,13 @@ export const pathGet = (arr1, query) => {
   // `pathGet(a, 'James')` = "a.user.name.firstName"
 
   // ============== CODE GOES BELOW THIS LINE :) ==============
+  for(let [key, value] of Object.entries(arr1)) {
+    if (value === query) {
+      return key
+    }
+    if (value && (typeof value === 'object')) {
+      let path = pathGet(value, query)
+      if (path)  return `${key}.${path}`
+    }
+  }
 }
