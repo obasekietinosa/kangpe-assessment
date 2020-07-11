@@ -14,6 +14,7 @@ function App() {
     <BrowserRouter history="">
       <Switch>
         <Route path="/" exact component={ExplorePage}/>
+        {/* TODO (6a): Add New Route for Viewing a single Provider */}
         <Route path="/provider/:id" exact component={ViewProvider} />
         <Route component={PageNotFound} />
       </Switch>

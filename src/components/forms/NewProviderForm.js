@@ -25,7 +25,7 @@ class NewProviderForm extends React.Component {
         </div>
         <div className="form-group">
           <label htmlFor="rating">Provider Rating:</label>
-          <select className="select input__style_1" type="number" name="rating">
+          <select className="select input__style_1" name="rating">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -35,7 +35,7 @@ class NewProviderForm extends React.Component {
         </div>
         <div className="form-group">
           <label htmlFor="type">Provider type:</label>
-          <select className="select input__style_1" type="text" name="type">
+          <select className="select input__style_1" name="type">
             <option value="hospital">Hospital</option>
             <option value="pharmacy">Pharmacy</option>
             <option value="clinic">Clinic</option>
