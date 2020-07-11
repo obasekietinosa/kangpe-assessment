@@ -52,11 +52,13 @@ class ViewProvider extends React.Component {
                     <img src={provider?.images?.[0]?.url} alt={provider.name} />
                     <div>
                       <h4><i className="fas fa-map-marker"></i> {provider.address}</h4>
+                      <hr />
+                      <h5>Description</h5>
                       <p>{provider.description}</p>
-                      <p className="card__body-text provider-rating">
-                        {provider.rating}
-                        /5
-                      </p>
+                      <hr />
+                      <h5>Rating</h5>
+                      <p>{provider.rating}/5</p>
+                      <hr />
                     </div>
                   </>
                 )

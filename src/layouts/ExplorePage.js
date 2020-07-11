@@ -90,7 +90,7 @@ class ExplorePage extends React.Component {
             />
           </div>
           <div className="layout-switcher">
-              <i className={`fa fa-images ${this.isCurrentView("gallery") ? "active" : ""}`}onClick={() => this.switchView("gallery")}></i>
+              <i className={`fa fa-images ${this.isCurrentView("gallery") ? "active" : ""}`} onClick={() => this.switchView("gallery")}></i>
               <i className={`fa fa-th-large ${this.isCurrentView("grid") ? "active" : ""}`} onClick={() => this.switchView("grid")}></i>
               <i className={`fa fa-th-list ${this.isCurrentView("list") ? "active" : ""}`} onClick={() => this.switchView("list")}></i>
             </div>
