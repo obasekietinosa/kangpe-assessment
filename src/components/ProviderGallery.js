@@ -28,29 +28,37 @@ class Gallery extends React.Component {
     };
   }
 
-  isActiveItem = (key) => {
+  isActiveItemIndex = (key) => {
     return key === this.state.activeItem
   }
 
-  setActiveItem = (activeItem) => {
+  getNextItemIndex = () => {
+    let currentIndex = this.state.activeItem
+    let maxIndex = this.state.items.length - 1
+
+    return currentIndex === maxIndex ? 0 : currentIndex + 1
+  }
+
+  getPrevItemIndex = () => {
+    let currentIndex = this.state.activeItem
+    let maxIndex = this.state.items.length - 1
+
+    return currentIndex === 0 ? maxIndex : currentIndex - 1
+  }
+
+  setActiveItemIndex = (activeItem) => {
     if (activeItem === this.state.activeItem) return
     this.setState({activeItem})
   }
 
-  nextItem = () => {
-    let currentIndex = this.state.activeItem
-    let maxIndex = this.state.items.length - 1
-
-    let activeItem = currentIndex === maxIndex ? 0 : currentIndex + 1
-    this.setState({activeItem})
+  setNextItemIndex = () => {
+    let activeItem = this.getNextItemIndex()
+    this.setActiveItemIndex(activeItem)
   }
 
-  prevItem = () => {
-    let currentIndex = this.state.activeItem
-    let maxIndex = this.state.items.length - 1
-
-    let activeItem = currentIndex === 0 ? maxIndex : currentIndex - 1
-    this.setState({activeItem})
+  setPrevItemIndex = () => {
+    let activeItem = this.getPrevItemIndex()
+    this.setActiveItemIndex(activeItem)
   }
 
   render() {
@@ -65,7 +73,7 @@ class Gallery extends React.Component {
         <div className="gallery__slider">
           <div className="gallery__slider-item-wrapper">
             <div className="gallery__slider-item prev"
-              style={{backgroundImage:`url("https://via.placeholder.com/150x100")`}}> 
+              style={{backgroundImage:`url("${this.state.items[this.getPrevItemIndex()].imageUrl}")`}}> 
             </div>            
             <div className="gallery__slider-item active">
               <img src={this.state.items[this.state.activeItem].imageUrl} className="gallery__slider-item active" alt={`${this.state.items[this.state.activeItem].name}`} />
@@ -82,14 +90,14 @@ class Gallery extends React.Component {
               </div>
             </div>          
             <div className="gallery__slider-item next"
-              style={{backgroundImage:`url("https://via.placeholder.com/150x100")`}}>              
+              style={{backgroundImage:`url("${this.state.items[this.getNextItemIndex()].imageUrl}")`}}>              
             </div>            
           </div>    
           <div className="gallery__slider-controls">
-            <button onClick={this.nextItem} className="gallery__slider-controls__button left">
+            <button onClick={this.setNextItemIndex} className="gallery__slider-controls__button left">
               <i className="fa fa-chevron-left"></i>
             </button>
-            <button onClick={this.prevItem} className="gallery__slider-controls__button right">
+            <button onClick={this.setPrevItemIndex} className="gallery__slider-controls__button right">
               <i className="fa fa-chevron-right"></i>
             </button>
           </div>      
@@ -99,8 +107,8 @@ class Gallery extends React.Component {
             this.state.items.map((item, key) => (
               <div 
                 key={key} 
-                onClick={() => this.setActiveItem(key)} 
-                className={`gallery__thumbnails__item ${this.isActiveItem(key) ? "active" : ""}`}
+                onClick={() => this.setActiveItemIndex(key)} 
+                className={`gallery__thumbnails__item ${this.isActiveItemIndex(key) ? "active" : ""}`}
                 style={{backgroundImage:`url("${item.imageUrl}")`}}>            
               </div>
             ))
