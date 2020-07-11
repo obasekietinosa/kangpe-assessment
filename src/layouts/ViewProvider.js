@@ -41,28 +41,28 @@ class ViewProvider extends React.Component {
     const { isLoading, provider } = this.state;
     return (
         <>
-        <h1 className="text-header">View Provider <span><i className="fa fa-edit"></i></span></h1>
-        <div className="flex-row box-shadow" style={{padding:"1rem"}}>
-        {(isLoading || !provider) ? (
-          <LoadingScreen />
-        ) : (
-              <>
-              <img src={provider?.images?.[0]?.url} alt="Provider" />
-              <div className="card-details">
-                <h3 className="card__title">{provider.name}</h3>
-                <p className="card__sub-title">{provider.address}</p>
-                <p className="card__sub-title">{provider.description}</p>
-                <div className={`provider-card__lower`}>
-                  <p className="card__body-text provider-rating">
-                    {provider.rating}
-                    /5
-                  </p>
-                </div>
-              </div>
-              </>
-            )
-        }
-        </div>
+          <section>
+            <h1 className="text-header">View Provider <span><i className="fa fa-edit"></i></span></h1>
+            <div className="box-shadow" style={{padding:"1rem"}}>
+            {(isLoading || !provider) ? (
+              <LoadingScreen />
+            ) : (
+                  <>
+                    <h2>{provider.name}</h2>
+                    <img src={provider?.images?.[0]?.url} alt={provider.name} />
+                    <div>
+                      <h4><i className="fas fa-map-marker"></i> {provider.address}</h4>
+                      <p>{provider.description}</p>
+                      <p className="card__body-text provider-rating">
+                        {provider.rating}
+                        /5
+                      </p>
+                    </div>
+                  </>
+                )
+            }
+            </div>
+          </section>
         </>
     )
   }

@@ -12,6 +12,7 @@ class ExplorePage extends React.Component {
     super(props);
     this.state = {
       data: [],
+      providers: [],
       isLoading: false
     };
   }
@@ -23,6 +24,7 @@ class ExplorePage extends React.Component {
         this.setState({
           isLoading: false,
           data: data,
+          providers: data,
           currentView: "gallery"
         });
       });
@@ -39,7 +41,10 @@ class ExplorePage extends React.Component {
     // On input, filter Available Providers based on Name, Address and Type
     //
     // ============== CODE GOES BELOW THIS LINE :) ==============
-    pathGet(this.state.data, event.target.value)
+    let providers = this.state.data.filter((provider => (
+      Boolean(pathGet(provider, event.target.value))
+    )))
+    this.setState({providers})
   }
 
   isCurrentView =  (key) => {
@@ -56,7 +61,7 @@ class ExplorePage extends React.Component {
   }
 
   render() {
-    const { isLoading, data, currentView } = this.state;
+    const { isLoading, providers, currentView } = this.state;
     let ProviderView
     switch (currentView) {
       case "grid":
@@ -90,12 +95,12 @@ class ExplorePage extends React.Component {
               <i className={`fa fa-th-list ${this.isCurrentView("list") ? "active" : ""}`} onClick={() => this.switchView("list")}></i>
             </div>
         </div>
-        {(isLoading || !data) ? (
+        {(isLoading || !providers) ? (
           <LoadingScreen />
         ) : (
           <React.Fragment>                
             <ProviderView
-              items={data.map((item) => ({
+              items={providers.map((item) => ({
                 id: item.id, 
                 address: item.address,
                 rating: item.rating,
