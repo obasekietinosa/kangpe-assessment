@@ -5,6 +5,8 @@ import NewProviderForm from '../components/forms/NewProviderForm';
 import ApiService from '../utils/apiService';
 import LoadingScreen from '../components/common/LoadingScreen';
 import { pathGet } from '../utils/utils';
+import Grid from '../components/ProviderGrid';
+import List from '../components/ProviderList';
 
 class ExplorePage extends React.Component {
   constructor(props) {
@@ -21,7 +23,8 @@ class ExplorePage extends React.Component {
       .then((data) => {
         this.setState({
           isLoading: false,
-          data: data
+          data: data,
+          currentView: "gallery"
         });
       });
   }
@@ -40,16 +43,34 @@ class ExplorePage extends React.Component {
     pathGet(this.state.data, event.target.value)
   }
 
-  switchView = () => {
+  isCurrentView =  (key) => {
+    return key === this.state.currentView
+  }
+
+  switchView = (currentView) => {
     // TASK 4:
     // onClick on a view preference, switch across the different view options (Gallery, List, Grid)
     // based on whatever the user selects.
     //
     // ============== CODE GOES BELOW THIS LINE :) ==============
+    this.setState({currentView})
   }
 
   render() {
-    const { isLoading, data } = this.state;
+    const { isLoading, data, currentView } = this.state;
+    let ProviderView
+    switch (currentView) {
+      case "grid":
+        ProviderView = Grid
+        break;
+      case "list":
+        ProviderView = List
+        break;
+      case "gallery":
+      default:
+        ProviderView = Gallery
+        break;
+    }
     return (
       <div className="container">
         <NavBar />
@@ -67,17 +88,25 @@ class ExplorePage extends React.Component {
                 />
               </div>
               <div className="layout-switcher">
-                  <i className="fa fa-images active" onClick={this.switchView}></i>
-                  <i className="fa fa-th-large" onClick={this.switchView}></i>
-                  <i className="fa fa-th-list" onClick={this.switchView}></i>
+                  <i className={`fa fa-images ${this.isCurrentView("gallery") ? "active" : ""}`}onClick={() => this.switchView("gallery")}></i>
+                  <i className={`fa fa-th-large ${this.isCurrentView("grid") ? "active" : ""}`} onClick={() => this.switchView("grid")}></i>
+                  <i className={`fa fa-th-list ${this.isCurrentView("list") ? "active" : ""}`} onClick={() => this.switchView("list")}></i>
                 </div>
             </div>
             {(isLoading || !data) ? (
               <LoadingScreen />
             ) : (
               <React.Fragment>                
-                <Gallery
-                  items={data.map((item) => ({id: item.id, imageUrl: item.images[0].url, name: item.name, description: item.description}))}
+                <ProviderView
+                  items={data.map((item) => ({
+                    id: item.id, 
+                    address: item.address,
+                    rating: item.rating,
+                    type: item.provider_type.name, 
+                    imageUrl: item.images[0].url, 
+                    name: item.name, 
+                    description: item.description
+                  }))}
                 />
               </React.Fragment>
             )}
