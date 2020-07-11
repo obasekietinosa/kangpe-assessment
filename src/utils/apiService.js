@@ -28,7 +28,6 @@ class ApiService {
       `${url}${data ? `?${queryString.stringify(data)}` : ''}`,
       {
         method: 'GET',
-        // credentials: 'include',
         headers: {
             'Authorization': BEARER,
             'Content-Type': 'application/json'
@@ -51,7 +50,11 @@ class ApiService {
     const response = await fetch(
       url, {
         method: 'POST',
-        body: data
+        headers: {
+            'Authorization': BEARER,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
       }
     );
     return response.json();

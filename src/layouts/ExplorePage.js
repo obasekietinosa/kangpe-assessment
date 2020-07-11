@@ -102,8 +102,8 @@ class ExplorePage extends React.Component {
                     id: item.id, 
                     address: item.address,
                     rating: item.rating,
-                    type: item.provider_type.name, 
-                    imageUrl: item.images[0].url, 
+                    type: item.provider_type?.name, 
+                    imageUrl: item?.images?.[0]?.url, 
                     name: item.name, 
                     description: item.description
                   }))}
